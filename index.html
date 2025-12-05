@@ -35,7 +35,7 @@
 
         /* --- Global Creative Components --- */
         
-        /* Fixed Sketchy Box: No 'transform' here to avoid Tailwind conflicts */
+        /* Fixed Sketchy Box */
         .sketchy-box {
             background: white;
             border: 2px solid var(--vanta-border);
@@ -46,7 +46,6 @@
 
         .sketchy-box:hover {
             box-shadow: 8px 8px 0px 0px var(--vanta-border);
-            /* Translation is now handled by Tailwind utility classes in HTML */
         }
         
         /* Fixed Buttons */
@@ -64,11 +63,10 @@
         }
         .creative-btn:hover {
             box-shadow: 6px 6px 0px 0px var(--vanta-border);
-            /* transform handled by Tailwind */
         }
         .creative-btn:active {
             box-shadow: 2px 2px 0px 0px var(--vanta-border);
-            transform: translate(2px, 2px) !important; /* Force override for click effect */
+            transform: translate(2px, 2px) !important;
         }
         .btn-primary {
             background-color: var(--vanta-purple);
@@ -138,31 +136,30 @@
         /* --- Hero Section --- */
         .hero-perspective-container { perspective: 1000px; overflow: visible; }
         
-        /* Floating decorative stickers */
-        .sticker {
-            position: absolute;
-            z-index: 0;
-            opacity: 0.8;
-            filter: drop-shadow(2px 2px 0px rgba(0,0,0,0.2));
-            animation: float 6s ease-in-out infinite;
+        .hero-card-frame {
+            background: #27272a;
+            border: 3px solid var(--vanta-border);
+            border-radius: 1.5rem;
+            box-shadow: 8px 8px 0px 0px var(--vanta-border);
+            transform-style: preserve-3d;
+            will-change: transform;
         }
         
-        /* New Space Elements */
+        /* New Space Elements (Images) */
         .space-element {
             position: absolute;
             z-index: 0;
             animation: float-space 8s ease-in-out infinite;
-            font-size: 4rem; /* Adjust size as needed */
+            /* Default size for icons */
+            width: 6rem;
+            height: auto;
+            filter: drop-shadow(0 10px 15px rgba(0,0,0,0.1));
         }
         
-        .space-element-lg { font-size: 8rem; }
-        .space-element-md { font-size: 6rem; }
+        .space-element-lg { width: 12rem; }
+        .space-element-md { width: 9rem; }
+        .space-element-sm { width: 4rem; }
 
-        @keyframes float {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-10px) rotate(5deg); }
-        }
-        
         @keyframes float-space {
             0%, 100% { transform: translateY(0px) translateX(0px) rotate(0deg); }
             33% { transform: translateY(-20px) translateX(10px) rotate(5deg); }
@@ -208,6 +205,13 @@
         .lenis.lenis-scrolling iframe {
             pointer-events: none;
         }
+
+        /* --- Fix Card Rotation Conflict --- */
+        /* Custom classes to apply static rotation, allowing hover utilities to take over */
+        .rotate-neg-1 { transform: rotate(-1deg); }
+        .rotate-pos-1 { transform: rotate(1deg); }
+        .rotate-neg-2 { transform: rotate(-2deg); }
+        .rotate-pos-2 { transform: rotate(2deg); }
     </style>
 </head>
 <body>
@@ -247,7 +251,7 @@
 
                 <div class="flex items-center gap-4">
                     <a href="https://discord.com/oauth2/authorize?client_id=1419881059587199039&permissions=8&integration_type=0&scope=bot" target="_blank" class="hidden md:inline-flex creative-btn btn-primary px-6 py-2 rounded-xl text-lg hover:-translate-y-1 hover:-translate-x-1 hover:rotate-2">
-                        Invite Bot <i class="fa-solid fa-arrow-right ml-2 text-sm"></i>
+                        Get Started <i class="fa-solid fa-arrow-right ml-2 text-sm"></i>
                     </a>
                     <button id="mobile-menu-btn" class="md:hidden p-2 rounded-md text-gray-800 hover:text-purple-600 focus:outline-none">
                         <i class="fa-solid fa-bars text-2xl"></i>
@@ -262,7 +266,7 @@
                 <span onclick="router('features')" class="block px-4 py-3 border-2 border-transparent hover:border-black hover:bg-purple-50 rounded-lg text-xl font-bold cursor-pointer transition-all">Features</span>
                 <span onclick="router('premium')" class="block px-4 py-3 border-2 border-transparent hover:border-black hover:bg-purple-50 rounded-lg text-xl font-bold cursor-pointer transition-all">Premium</span>
                 <span onclick="router('commands')" class="block px-4 py-3 border-2 border-transparent hover:border-black hover:bg-purple-50 rounded-lg text-xl font-bold cursor-pointer transition-all">Commands</span>
-                <a href="https://discord.com/oauth2/authorize?client_id=1419881059587199039&permissions=8&integration_type=0&scope=bot" target="_blank" class="block w-full text-center mt-4 creative-btn btn-primary py-3 rounded-lg">Invite Bot</a>
+                <a href="https://discord.com/oauth2/authorize?client_id=1419881059587199039&permissions=8&integration_type=0&scope=bot" target="_blank" class="block w-full text-center mt-4 creative-btn btn-primary py-3 rounded-lg">Get Started</a>
             </div>
         </div>
     </header>
@@ -272,21 +276,9 @@
         <!-- PAGE: HOME -->
         <div id="home" class="page-section active">
             <section class="relative w-full overflow-hidden" style="min-height: 100vh;">
-                <!-- Original Stickers -->
-                <div class="sticker top-32 left-[5%] text-6xl rotate-12 text-yellow-400">⚡️</div>
-                <div class="sticker bottom-20 right-[5%] text-6xl -rotate-12 text-blue-400">💎</div>
-                <div class="sticker top-40 right-[15%] text-4xl rotate-45 text-purple-400">🎵</div>
+                <!-- All space elements removed -->
 
-                <!-- New Space Elements -->
-                <div class="space-element space-element-lg top-20 left-[20%] rotate-12 opacity-80">🌍</div>
-                <div class="space-element space-element-md bottom-40 left-[10%] -rotate-12 opacity-80">🚀</div>
-                <div class="space-element top-60 right-[25%] rotate-45 opacity-80">🧑‍🚀</div>
-                <div class="space-element space-element-md top-1/4 right-[10%] -rotate-6 opacity-80">🌕</div>
-                <div class="space-element top-3/4 left-[30%] rotate-12 opacity-60">⭐️</div>
-                <div class="space-element top-1/3 right-[40%] -rotate-12 opacity-60">🌟</div>
-                <div class="space-element bottom-1/4 right-[20%] rotate-6 opacity-60">✨</div>
-
-                <div class="relative py-16 flex flex-col items-center justify-start hero-perspective-container">
+                <div class="relative py-16 flex flex-col items-center justify-center hero-perspective-container" style="min-height: 80vh;">
                     
                     <div id="hero-header" class="max-w-4xl mx-auto text-center z-20 px-4 transition-transform duration-100 ease-out mb-12">
                         <div class="inline-flex items-center px-4 py-1 rounded-full bg-green-100 border-2 border-black text-green-700 text-lg font-bold rotate-[-2deg] mb-6 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
@@ -317,7 +309,7 @@
                         </div>
                     </div>
 
-                    <!-- Dashboard Card REMOVED -->
+                    <!-- Dashboard Card is REMOVED -->
                     
                 </div>
             </section>
@@ -325,15 +317,15 @@
             <section class="py-12 bg-white border-y-2 border-black">
                 <div class="max-w-7xl mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
                     <div class="group cursor-default">
-                        <div class="text-5xl font-black text-slate-900 group-hover:scale-110 transition-transform">2M+</div>
+                        <div class="text-5xl font-black text-slate-900 group-hover:scale-110 transition-transform">500k+</div>
                         <div class="text-xl text-slate-500 font-bold rotate-[-2deg]">Users Served</div>
                     </div>
                     <div class="group cursor-default">
-                        <div class="text-5xl font-black text-slate-900 group-hover:scale-110 transition-transform">10k+</div>
+                        <div class="text-5xl font-black text-slate-900 group-hover:scale-110 transition-transform">300+</div>
                         <div class="text-xl text-slate-500 font-bold rotate-[2deg]">Servers</div>
                     </div>
                     <div class="group cursor-default">
-                        <div class="text-5xl font-black text-slate-900 group-hover:scale-110 transition-transform">99%</div>
+                        <div class="text-5xl font-black text-slate-900 group-hover:scale-110 transition-transform">99.97%</div>
                         <div class="text-xl text-slate-500 font-bold rotate-[-1deg]">Uptime</div>
                     </div>
                     <div class="group cursor-default">
@@ -364,7 +356,7 @@
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-10 px-4 md:px-0">
                         
                         <!-- Feature 1 -->
-                        <div class="sketchy-box p-6 rotate-[-1deg] hover:rotate-0 hover:-translate-y-1 hover:-translate-x-1 group">
+                        <div class="sketchy-box p-6 rotate-neg-1 hover:rotate-0 hover:-translate-y-1 hover:-translate-x-1 group">
                             <div class="mb-6 flex justify-between items-start">
                                 <div class="w-16 h-16 rounded-2xl flex items-center justify-center border-2 border-black bg-purple-100 text-purple-600 text-3xl shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] group-hover:rotate-12 transition-transform">
                                     <i class="fa-solid fa-music"></i>
@@ -380,7 +372,7 @@
                         </div>
 
                         <!-- Feature 2 -->
-                        <div class="sketchy-box p-6 rotate-[1deg] hover:rotate-0 hover:-translate-y-1 hover:-translate-x-1 group">
+                        <div class="sketchy-box p-6 rotate-pos-1 hover:rotate-0 hover:-translate-y-1 hover:-translate-x-1 group">
                             <div class="mb-6 flex justify-between items-start">
                                 <div class="w-16 h-16 rounded-2xl flex items-center justify-center border-2 border-black bg-blue-100 text-blue-600 text-3xl shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] group-hover:-rotate-12 transition-transform">
                                     <i class="fa-solid fa-gavel"></i>
@@ -396,7 +388,7 @@
                         </div>
 
                         <!-- Feature 3 -->
-                        <div class="sketchy-box p-6 rotate-[-2deg] hover:rotate-0 hover:-translate-y-1 hover:-translate-x-1 group">
+                        <div class="sketchy-box p-6 rotate-neg-2 hover:rotate-0 hover:-translate-y-1 hover:-translate-x-1 group">
                             <div class="mb-6 flex justify-between items-start">
                                 <div class="w-16 h-16 rounded-2xl flex items-center justify-center border-2 border-black bg-green-100 text-green-600 text-3xl shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] group-hover:scale-110 transition-transform">
                                     <i class="fa-solid fa-robot"></i>
@@ -412,7 +404,7 @@
                         </div>
 
                         <!-- Feature 4 -->
-                        <div class="sketchy-box p-6 rotate-[1deg] hover:rotate-0 hover:-translate-y-1 hover:-translate-x-1 group">
+                        <div class="sketchy-box p-6 rotate-pos-1 hover:rotate-0 hover:-translate-y-1 hover:-translate-x-1 group">
                             <div class="mb-6 flex justify-between items-start">
                                 <div class="w-16 h-16 rounded-2xl flex items-center justify-center border-2 border-black bg-yellow-100 text-yellow-600 text-3xl shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] group-hover:rotate-12 transition-transform">
                                     <i class="fa-solid fa-coins"></i>
@@ -428,7 +420,7 @@
                         </div>
 
                         <!-- Feature 5 -->
-                        <div class="sketchy-box p-6 rotate-[-2deg] hover:rotate-0 hover:-translate-y-1 hover:-translate-x-1 group">
+                        <div class="sketchy-box p-6 rotate-neg-2 hover:rotate-0 hover:-translate-y-1 hover:-translate-x-1 group">
                             <div class="mb-6 flex justify-between items-start">
                                 <div class="w-16 h-16 rounded-2xl flex items-center justify-center border-2 border-black bg-pink-100 text-pink-600 text-3xl shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] group-hover:-rotate-12 transition-transform">
                                     <i class="fa-solid fa-gamepad"></i>
@@ -444,7 +436,7 @@
                         </div>
 
                         <!-- Feature 6 -->
-                        <div class="sketchy-box p-6 rotate-[2deg] hover:rotate-0 hover:-translate-y-1 hover:-translate-x-1 group">
+                        <div class="sketchy-box p-6 rotate-pos-2 hover:rotate-0 hover:-translate-y-1 hover:-translate-x-1 group">
                             <div class="mb-6 flex justify-between items-start">
                                 <div class="w-16 h-16 rounded-2xl flex items-center justify-center border-2 border-black bg-cyan-100 text-cyan-600 text-3xl shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] group-hover:scale-110 transition-transform">
                                     <i class="fa-solid fa-user-group"></i>
@@ -460,7 +452,7 @@
                         </div>
 
                         <!-- Feature 7: And More -->
-                        <div class="sketchy-box p-6 rotate-[-1deg] hover:rotate-0 hover:-translate-y-1 hover:-translate-x-1 group md:col-span-3 lg:col-span-1 lg:col-start-2">
+                        <div class="sketchy-box p-6 rotate-neg-1 hover:rotate-0 hover:-translate-y-1 hover:-translate-x-1 group md:col-span-3 lg:col-span-1 lg:col-start-2">
                             <div class="mb-6 flex justify-between items-start">
                                 <div class="w-16 h-16 rounded-2xl flex items-center justify-center border-2 border-black bg-gray-100 text-gray-600 text-3xl shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] group-hover:rotate-12 transition-transform">
                                     <i class="fa-solid fa-layer-group"></i>
@@ -499,7 +491,7 @@
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-8 px-4 md:px-0">
                         
                         <!-- Tier 1 -->
-                        <div class="sketchy-box p-8 rotate-[-1deg] hover:rotate-0 hover:-translate-y-1 hover:-translate-x-1 relative group">
+                        <div class="sketchy-box p-8 rotate-neg-1 hover:rotate-0 hover:-translate-y-1 hover:-translate-x-1 relative group">
                             <div class="w-14 h-14 rounded-full mb-6 flex items-center justify-center border-2 border-black bg-white text-3xl shadow-sm group-hover:bg-blue-100 transition-colors">
                                 ⚡️
                             </div>
@@ -515,7 +507,7 @@
                         </div>
 
                         <!-- Tier 2 -->
-                        <div class="sketchy-box p-8 rotate-[1deg] hover:rotate-0 hover:-translate-y-1 hover:-translate-x-1 relative group bg-yellow-50">
+                        <div class="sketchy-box p-8 rotate-pos-1 hover:rotate-0 hover:-translate-y-1 hover:-translate-x-1 relative group bg-yellow-50">
                             <div class="absolute -top-5 right-4 bg-yellow-400 border-2 border-black px-4 py-1 rounded-full font-bold shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] rotate-3 z-20">
                                 Most Popular!
                             </div>
@@ -535,7 +527,7 @@
                         </div>
 
                         <!-- Tier 3 -->
-                        <div class="sketchy-box p-8 rotate-[-2deg] hover:rotate-0 hover:-translate-y-1 hover:-translate-x-1 relative group">
+                        <div class="sketchy-box p-8 rotate-neg-2 hover:rotate-0 hover:-translate-y-1 hover:-translate-x-1 relative group">
                             <div class="w-14 h-14 rounded-full mb-6 flex items-center justify-center border-2 border-black bg-white text-3xl shadow-sm group-hover:bg-purple-100 transition-colors">
                                 👑
                             </div>
@@ -657,7 +649,6 @@
 
         // --- Container Scroll Effect Logic ---
         const headerEl = document.getElementById('hero-header');
-        // cardEl was removed, so we remove the reference here
         const SCROLL_DISTANCE = 500; 
         
         function handleScrollEffect() {
