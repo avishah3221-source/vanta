@@ -138,15 +138,7 @@
         /* --- Hero Section --- */
         .hero-perspective-container { perspective: 1000px; overflow: visible; }
         
-        .hero-card-frame {
-            background: #27272a;
-            border: 3px solid var(--vanta-border);
-            border-radius: 1.5rem;
-            box-shadow: 8px 8px 0px 0px var(--vanta-border);
-            transform-style: preserve-3d;
-            will-change: transform;
-        }
-        
+        /* Floating decorative stickers */
         .sticker {
             position: absolute;
             z-index: 0;
@@ -154,9 +146,27 @@
             filter: drop-shadow(2px 2px 0px rgba(0,0,0,0.2));
             animation: float 6s ease-in-out infinite;
         }
+        
+        /* New Space Elements */
+        .space-element {
+            position: absolute;
+            z-index: 0;
+            animation: float-space 8s ease-in-out infinite;
+            font-size: 4rem; /* Adjust size as needed */
+        }
+        
+        .space-element-lg { font-size: 8rem; }
+        .space-element-md { font-size: 6rem; }
+
         @keyframes float {
             0%, 100% { transform: translateY(0px) rotate(0deg); }
             50% { transform: translateY(-10px) rotate(5deg); }
+        }
+        
+        @keyframes float-space {
+            0%, 100% { transform: translateY(0px) translateX(0px) rotate(0deg); }
+            33% { transform: translateY(-20px) translateX(10px) rotate(5deg); }
+            66% { transform: translateY(10px) translateX(-10px) rotate(-5deg); }
         }
 
         /* --- Page Transitions --- */
@@ -236,7 +246,6 @@
                 </nav>
 
                 <div class="flex items-center gap-4">
-                    <!-- Updated hover classes for buttons -->
                     <a href="https://discord.com/oauth2/authorize?client_id=1419881059587199039&permissions=8&integration_type=0&scope=bot" target="_blank" class="hidden md:inline-flex creative-btn btn-primary px-6 py-2 rounded-xl text-lg hover:-translate-y-1 hover:-translate-x-1 hover:rotate-2">
                         Invite Bot <i class="fa-solid fa-arrow-right ml-2 text-sm"></i>
                     </a>
@@ -263,9 +272,19 @@
         <!-- PAGE: HOME -->
         <div id="home" class="page-section active">
             <section class="relative w-full overflow-hidden" style="min-height: 100vh;">
+                <!-- Original Stickers -->
                 <div class="sticker top-32 left-[5%] text-6xl rotate-12 text-yellow-400">⚡️</div>
                 <div class="sticker bottom-20 right-[5%] text-6xl -rotate-12 text-blue-400">💎</div>
                 <div class="sticker top-40 right-[15%] text-4xl rotate-45 text-purple-400">🎵</div>
+
+                <!-- New Space Elements -->
+                <div class="space-element space-element-lg top-20 left-[20%] rotate-12 opacity-80">🌍</div>
+                <div class="space-element space-element-md bottom-40 left-[10%] -rotate-12 opacity-80">🚀</div>
+                <div class="space-element top-60 right-[25%] rotate-45 opacity-80">🧑‍🚀</div>
+                <div class="space-element space-element-md top-1/4 right-[10%] -rotate-6 opacity-80">🌕</div>
+                <div class="space-element top-3/4 left-[30%] rotate-12 opacity-60">⭐️</div>
+                <div class="space-element top-1/3 right-[40%] -rotate-12 opacity-60">🌟</div>
+                <div class="space-element bottom-1/4 right-[20%] rotate-6 opacity-60">✨</div>
 
                 <div class="relative py-16 flex flex-col items-center justify-start hero-perspective-container">
                     
@@ -298,56 +317,8 @@
                         </div>
                     </div>
 
-                    <div id="hero-card" class="hero-3d-card hero-card-frame relative max-w-5xl w-[95%] md:w-full mx-auto h-[35rem] md:h-[45rem] p-4 z-10 bg-slate-800">
-                        <div class="h-full w-full rounded-xl bg-slate-900 overflow-hidden relative border-2 border-slate-700 flex">
-                            <!-- Sidebar: Hidden on Mobile (hidden md:flex) -->
-                            <div class="w-64 bg-slate-950 border-r-2 border-slate-800 hidden md:flex flex-col p-4">
-                                <div class="h-10 w-32 bg-slate-800 rounded-lg mb-8 border border-slate-700"></div>
-                                <div class="space-y-4">
-                                    <div class="h-4 w-40 bg-slate-800 rounded"></div>
-                                    <div class="h-4 w-32 bg-slate-800 rounded opacity-50"></div>
-                                    <div class="h-4 w-36 bg-slate-800 rounded opacity-50"></div>
-                                </div>
-                                <div class="mt-auto p-4 bg-gradient-to-r from-purple-600 to-indigo-600 rounded-lg border-2 border-black text-white font-bold text-center shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
-                                    PRO Active
-                                </div>
-                            </div>
-                            <!-- Main Content: Full width on mobile -->
-                            <div class="flex-1 p-4 md:p-8 flex flex-col">
-                                <div class="flex justify-between items-center mb-8">
-                                    <div class="h-10 w-32 md:w-48 bg-slate-800 rounded-lg border border-slate-700"></div>
-                                    <div class="flex gap-2">
-                                        <div class="h-10 w-10 rounded-full bg-slate-800 border border-slate-700"></div>
-                                        <div class="h-10 w-10 rounded-full bg-purple-500 border-2 border-black"></div>
-                                    </div>
-                                </div>
-                                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8 overflow-y-auto max-h-[50%] md:max-h-none">
-                                    <div class="h-24 md:h-32 rounded-xl bg-slate-800 p-4 border-2 border-slate-700 shadow-[4px_4px_0px_0px_rgba(0,0,0,0.5)]">
-                                        <div class="text-purple-400 text-2xl mb-1"><i class="fa-solid fa-music"></i></div>
-                                        <div class="text-slate-400 text-sm md:text-lg">Playing</div>
-                                        <div class="text-white text-lg md:text-xl font-bold">Lofi Hip Hop</div>
-                                    </div>
-                                    <div class="h-24 md:h-32 rounded-xl bg-slate-800 p-4 border-2 border-slate-700 shadow-[4px_4px_0px_0px_rgba(0,0,0,0.5)]">
-                                        <div class="text-blue-400 text-2xl mb-1"><i class="fa-solid fa-user-shield"></i></div>
-                                        <div class="text-slate-400 text-sm md:text-lg">Mod Actions</div>
-                                        <div class="text-white text-lg md:text-xl font-bold">12 today</div>
-                                    </div>
-                                    <div class="h-24 md:h-32 rounded-xl bg-slate-800 p-4 border-2 border-slate-700 shadow-[4px_4px_0px_0px_rgba(0,0,0,0.5)] hidden md:block">
-                                        <div class="text-green-400 text-2xl mb-1"><i class="fa-solid fa-arrow-up"></i></div>
-                                        <div class="text-slate-400 text-sm md:text-lg">Server Level</div>
-                                        <div class="text-white text-lg md:text-xl font-bold">Level 5</div>
-                                    </div>
-                                </div>
-                                <div class="h-48 rounded-xl bg-slate-800 border-2 border-slate-700 relative overflow-hidden flex items-end px-6 gap-4 pb-0 mt-auto">
-                                    <div class="w-full bg-purple-500/40 h-[40%] rounded-t-md border-t-2 border-x-2 border-slate-600"></div>
-                                    <div class="w-full bg-purple-500/60 h-[70%] rounded-t-md border-t-2 border-x-2 border-slate-600"></div>
-                                    <div class="w-full bg-purple-500/50 h-[50%] rounded-t-md border-t-2 border-x-2 border-slate-600"></div>
-                                    <div class="w-full bg-purple-500/80 h-[85%] rounded-t-md border-t-2 border-x-2 border-slate-600"></div>
-                                    <div class="w-full bg-purple-500 h-[60%] rounded-t-md border-t-2 border-x-2 border-slate-600"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <!-- Dashboard Card REMOVED -->
+                    
                 </div>
             </section>
             
@@ -686,25 +657,16 @@
 
         // --- Container Scroll Effect Logic ---
         const headerEl = document.getElementById('hero-header');
-        const cardEl = document.getElementById('hero-card');
+        // cardEl was removed, so we remove the reference here
         const SCROLL_DISTANCE = 500; 
         
         function handleScrollEffect() {
             if(!document.getElementById('home').classList.contains('active')) return;
             const scrollY = window.scrollY;
             let progress = Math.min(1, Math.max(0, scrollY / SCROLL_DISTANCE));
-            const isMobile = window.innerWidth <= 768;
             
-            const rotateX = 10 - (10 * progress);
-            let scale;
-            if (isMobile) {
-                scale = 0.8 + (0.1 * progress);
-            } else {
-                scale = 0.95 + (0.05 * progress);
-            }
             const translateY = -30 * progress;
             
-            if(cardEl) { cardEl.style.transform = `perspective(1000px) rotateX(${rotateX}deg) scale(${scale})`; }
             if(headerEl) { headerEl.style.transform = `translateY(${translateY}px)`; }
         }
 
